@@ -1,0 +1,14 @@
+package cn.springcloud.book;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+@MapperScan({"cn.springcloud.book.mapper"})
+public class BizServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(BizServiceApplication.class, args);
+    }
+}

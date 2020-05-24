@@ -1,0 +1,88 @@
+version: '3'
+services:
+  microservice-sc-config-server:
+    build:
+      context: ./sc-config-server
+      dockerfile: Dockerfile
+      args:
+        PROFILE: jdbc
+        SERVER_PORT: 8080
+        JAR_FILE: sc-config-server-0.0.1-SNAPSHOT.jar
+#    image: 127.0.0.1:5000/springcloud/sc-config-server:0.0.1-SNAPSHOT
+#    network_mode: host
+    ports:
+      - 9999:8080
+  microservice-sc-eureka-server-1:
+    build:
+      context: ./sc-eureka-server
+      dockerfile: Dockerfile
+      args:
+        SERVER_PORT: 8080
+        CONFIG_SERVER_HOST: 172.20.231.145
+        CONFIG_SERVER_PORT: 9999
+        EUREKA_SERVER_HOST: 172.20.231.145
+        EUREKA_SERVER_PORT: 8762
+        JAR_FILE: sc-eureka-server-0.0.1-SNAPSHOT.jar
+    ports:
+      - 8761:8080
+  microservice-sc-eureka-server-2:
+    build:
+      context: ./sc-eureka-server
+      dockerfile: Dockerfile
+      args:
+        SERVER_PORT: 8080
+        CONFIG_SERVER_HOST: 172.20.231.145
+        CONFIG_SERVER_PORT: 9999
+        EUREKA_SERVER_HOST: 172.20.231.145
+        EUREKA_SERVER_PORT: 8761
+        JAR_FILE: sc-eureka-server-0.0.1-SNAPSHOT.jar
+    ports:
+      - 8762:8080
+  microservice-sc-gateway:
+    build:
+      context: ./sc-gateway
+      dockerfile: Dockerfile
+      args:
+        PROFILE: default
+        SERVER_PORT: 8080
+        CONFIG_SERVER_HOST: 172.20.231.145
+        CONFIG_SERVER_PORT: 9999
+        EUREKA_SERVER1_HOST: 172.20.231.145
+        EUREKA_SERVER1_PORT: 8761
+        EUREKA_SERVER2_HOST: 172.20.231.145
+        EUREKA_SERVER2_PORT: 8762
+        JAR_FILE: sc-gateway-0.0.1-SNAPSHOT.jar
+    ports:
+      - 8003:8080
+  microservice-sc-spring-admin:
+    build:
+      context: ./sc-spring-admin
+      dockerfile: Dockerfile
+      args:
+        PROFILE: default
+        SERVER_PORT: 8080
+        CONFIG_SERVER_HOST: 172.20.231.145
+        CONFIG_SERVER_PORT: 9999
+        EUREKA_SERVER1_HOST: 172.20.231.145
+        EUREKA_SERVER1_PORT: 8761
+        EUREKA_SERVER2_HOST: 172.20.231.145
+        EUREKA_SERVER2_PORT: 8762
+        JAR_FILE: sc-spring-admin-0.0.1-SNAPSHOT.jar
+    ports:
+        - 8002:8080
+  microservice-sc-biz-service:
+    build:
+      context: ./sc-biz-service
+      dockerfile: Dockerfile
+      args:
+        PROFILE: default
+        SERVER_PORT: 8080
+        CONFIG_SERVER_HOST: 172.20.231.145
+        CONFIG_SERVER_PORT: 9999
+        EUREKA_SERVER1_HOST: 172.20.231.145
+        EUREKA_SERVER1_PORT: 8761
+        EUREKA_SERVER2_HOST: 172.20.231.145
+        EUREKA_SERVER2_PORT: 8762
+        JAR_FILE: sc-biz-service-0.0.1-SNAPSHOT.jar
+    ports:
+      - 8004:8080

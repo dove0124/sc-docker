@@ -1,0 +1,31 @@
+version: '3'
+services:
+  microservice-sc-config-server:
+    image: 127.0.0.1:5000/springcloud/sc-config-server:0.0.1-SNAPSHOT
+    network_mode: host
+    ports:
+      - 9999:8080
+  microservice-sc-eureka-server-1:
+    image: 127.0.0.1:5000/springcloud/sc-eureka-server:0.0.1-SNAPSHOT
+    network_mode: host
+    ports:
+      - 8761:8080
+  microservice-sc-eureka-server-2:
+    image: 127.0.0.1:5000/springcloud/sc-eureka-server:0.0.1-SNAPSHOT
+    network_mode: host
+    ports:
+      - 8762:8080
+  microservice-sc-gateway:
+    image: 127.0.0.1:5000/springcloud/sc-gateway:0.0.1-SNAPSHOT
+    network_mode: host
+    ports:
+      - 8003:8080
+  microservice-sc-spring-admin:
+    image: 127.0.0.1:5000/springcloud/sc-spring-admin:0.0.1-SNAPSHOT
+    network_mode: host
+    ports:
+      - 8002:8080
+
+
+## 注1：本Compose文件使用的网络模式是host，使用这种模式，可以让所有的微服务都无需修改eureka.client.serviceUrl.defautlZone的配置，而直接使用http://localhost:8761/eureka/。
+## 注2：该方式一般不适合生产，实体书里也并未提及，仅作拓展阅读。
