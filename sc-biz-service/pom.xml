@@ -24,7 +24,7 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <swagger.version>3.0.0-SNAPSHOT</swagger.version>
-        <guava.version>24.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <pagehelper.version>5.1.4</pagehelper.version>
     </properties>
 
